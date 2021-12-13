@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setLoading(true);
+    axios(
+      `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${page}/12`
+    ).then((response) => {
+      setData((prevData) => [...prevData, ...response.data.list]);
+      setLoading(false);
+    });
+  }, [page]);
+  console.log(data);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ul>
+        {data?.map((user) => (
+          <li>{user.name}</li>
+        ))}
+      </ul>
+      {loading && <h1>Loadin...</h1>}
+      <button onClick={() => setPage((prev) => prev + 1)}>+</button>
     </div>
   );
 }
