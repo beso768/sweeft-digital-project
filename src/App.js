@@ -6,7 +6,9 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const reactObserver = useRef();
+  const reactObserver = useRef(
+    new IntersectionObserver(() => {}, { threshold: 1 })
+  );
 
   useEffect(() => {
     setLoading(true);
