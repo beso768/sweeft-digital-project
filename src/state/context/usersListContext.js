@@ -1,5 +1,5 @@
 import { createContext, useReducer, useMemo } from "react";
-import userListReducer from "./usersListReducer";
+import userListReducer from "../reducer/usersListReducer";
 
 export const UserListContext = createContext(null);
 UserListContext.displayName = "UserListContext";

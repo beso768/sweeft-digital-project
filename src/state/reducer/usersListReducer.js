@@ -1,4 +1,4 @@
-import { userListTypes } from "./actionTypes/userListTypes";
+import { userListTypes } from "../actionTypes/userListTypes";
 
 export default function postReducer(
   state = { error: null, data: [], loading: false },

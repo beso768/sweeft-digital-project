@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function UserCard({ user }) {
   return (
     <Col key={user.id} md="4" className="h-auto card-wrapper my-4">
-      <Link to={`user/${user.id}`}>
+      <Link to={`/user/${user.id}`}>
         <Card className="h-100">
           <Card.Img variant="top" src={`${user.imageUrl}?=v${user.id}`} />
           <Card.Body className="d-flex flex-column justify-content-between">

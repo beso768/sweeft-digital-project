@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import User from "./components/User";
-import UserListProvider from "./state/usersListContext";
+import UserListProvider from "./state/context/usersListContext";
 
 function App() {
   return (
