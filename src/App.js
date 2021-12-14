@@ -18,7 +18,14 @@ function App() {
               </UserListProvider>
             }
           />
-          <Route path="user/:id" element={<User />} />
+          <Route
+            path="user/:id"
+            element={
+              <UserListProvider>
+                <User />
+              </UserListProvider>
+            }
+          />
         </Routes>
       </Container>
     </Router>

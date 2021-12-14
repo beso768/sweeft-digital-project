@@ -19,6 +19,9 @@ export default function postReducer(
     case userListTypes.ERROR_DATA: {
       return { error: action.payload, data: [], loading: false };
     }
+    case userListTypes.CLEAR_DATA: {
+      return { error: null, data: [], loading: true };
+    }
     default: {
       throw new Error(`Unsupported action type`);
     }
