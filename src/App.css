@@ -1,3 +1,6 @@
-.list li {
-  height: 300px;
+.loading-animation {
+  position: relative;
+  left: 50%;
+  z-index: 10;
+  bottom: 10px;
 }

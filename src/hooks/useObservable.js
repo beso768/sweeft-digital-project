@@ -1,16 +1,15 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
 export default function useObservable(element, setPage) {
   const observer = useRef(
     new IntersectionObserver(
-      (entries) => {
+      entries => {
         const first = entries[0];
-        console.log(first);
         if (first.isIntersecting) {
-          setPage((current) => current + 1);
+          setPage(current => current + 1);
         }
       },
-      { threshold: 1 }
+      { threshold: 0 }
     )
   );
   useEffect(() => {

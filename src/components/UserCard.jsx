@@ -1,6 +1,7 @@
-import React from "react";
-import { Card, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Card, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default function UserCard({ user }) {
   return (
@@ -19,3 +20,7 @@ export default function UserCard({ user }) {
     </Col>
   );
 }
+
+UserCard.propTypes = {
+  user: PropTypes.object,
+};

@@ -1,37 +1,47 @@
-import { useState, useEffect } from "react";
-import { Row, Spinner } from "react-bootstrap";
-import { clearData, getData } from "../state/actionCreators/userListActions";
-import useList from "../state/userList.hook";
-import useObservable from "../utils/useObservable";
-import UserCard from "./UserCard";
+import PropTypes from 'prop-types';
+import React, { memo, useEffect, useState } from 'react';
+import { Row } from 'react-bootstrap';
+import { clearData, getData } from '../state/actionCreators/userListActions';
+import useList from '../state/userList.hook';
+import useObservable from '../hooks/useObservable';
+import Loading from './Loading';
+import ToastNotification from './ToastNotification';
+import UserCard from './UserCard';
 
-export default function List({ userId }) {
+function List({ userId = null }) {
   const [state, dispatch] = useList();
   const [page, setPage] = useState(1);
   const [element, setElement] = useState(null);
 
-  useObservable(element, setPage); //   when ref element's "isIntersecting" property is true this hook will increment page
+  //   when last element appears  this hook will increment page number
+  useObservable(element, setPage);
 
+  // if user changes clear the previous friend list
   useEffect(() => {
     clearData(dispatch);
-  }, [userId]);
+  }, [userId, dispatch]);
 
   useEffect(() => {
     getData(dispatch, page, userId);
-  }, [page, userId]);
+  }, [page, userId, dispatch]);
 
   return (
     <Row>
-      {state.data?.map((user) => (
-        <UserCard user={user} key={user.id} />
-      ))}
-
-      {state.loading ? (
-        <Spinner animation="grow" />
-      ) : (
-        <div ref={setElement}>test</div>
-      )}
-      <div ref={setElement}>test</div>
+      {state.data?.map((user, i) => {
+        return i === state.data.length - 1 && !state.loading && page < 2000 ? (
+          <div key={user.id} ref={setElement}>
+            <UserCard user={user} />
+          </div>
+        ) : (
+          <UserCard user={user} key={user.id} />
+        );
+      })}
+      {state.error ? <ToastNotification error={state.error} /> : state.loading ? <Loading /> : null}
     </Row>
   );
 }
+export default memo(List);
+
+List.propTypes = {
+  userId: PropTypes.number,
+};

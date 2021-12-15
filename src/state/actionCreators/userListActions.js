@@ -1,5 +1,5 @@
-import { fetchData } from "../../utils/httpService";
-import { userListTypes } from "../actionTypes/userListTypes";
+import { fetchData } from '../../utils/httpService';
+import { userListTypes } from '../actionTypes/userListTypes';
 
 const getData = async (dispatch, page, userId) => {
   dispatch({
@@ -12,7 +12,7 @@ const getData = async (dispatch, page, userId) => {
     dispatch({ type: userListTypes.ERROR_DATA, payload: e.message });
   }
 };
-const clearData = (dispatch) => {
+const clearData = dispatch => {
   dispatch({
     type: userListTypes.CLEAR_DATA,
   });
