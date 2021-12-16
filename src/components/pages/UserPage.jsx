@@ -26,10 +26,6 @@ export default function UserPage({ userHistory, setUserHistory }) {
     } catch (error) {
       setError(dispatch, error);
     }
-
-    return () => {
-      setUserHistory([]);
-    };
   }, [id]);
 
   return (

@@ -10,6 +10,7 @@ import UserListProvider from './state/context/usersListContext';
 
 function App() {
   const [userHistory, setUserHistory] = useState([]);
+
   return (
     <ErrorBoundary>
       <UserListProvider>
