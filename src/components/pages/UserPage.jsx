@@ -2,17 +2,19 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
+import { setError } from '../../state/actionCreators/userListActions';
 import { fetchUser } from '../../utils/httpService';
 import List from '../List';
 import UserInfo from '../UserInfo';
+import useList from './../../state/userList.hook';
 
 export default function UserPage({ userHistory, setUserHistory }) {
   const [user, setUser] = useState(null);
+  const [, dispatch] = useList();
 
   let { id } = useParams();
 
   useEffect(async () => {
-    // eslint-disable-next-line no-useless-catch
     try {
       const userResponse = await fetchUser(id);
       setUser(userResponse);
@@ -22,15 +24,14 @@ export default function UserPage({ userHistory, setUserHistory }) {
         setUserHistory(curr => [...curr, userResponse]);
       }
     } catch (error) {
-      console.log(error);
-      throw Error(error);
+      setError(dispatch, error);
     }
 
     return () => {
       setUserHistory([]);
     };
   }, [id]);
-  console.log(user);
+
   return (
     <>
       {user && (

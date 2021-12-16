@@ -11,6 +11,7 @@ export default function UserListProvider({ children }) {
   const [state, dispatch] = useReducer(userListReducer, initialState);
   const value = useMemo(() => [state, dispatch], [state, dispatch]);
   if (state.error) {
+    console.log(state.error);
     throw state.error;
   }
   return <UserListContext.Provider value={value}>{children}</UserListContext.Provider>;
