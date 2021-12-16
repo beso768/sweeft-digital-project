@@ -8,9 +8,11 @@ UserListContext.displayName = 'UserListContext';
 const initialState = { error: null, data: [], loading: false };
 
 export default function UserListProvider({ children }) {
-  const [users, dispatch] = useReducer(userListReducer, initialState);
-  const value = useMemo(() => [users, dispatch], [users, dispatch]);
-
+  const [state, dispatch] = useReducer(userListReducer, initialState);
+  const value = useMemo(() => [state, dispatch], [state, dispatch]);
+  if (state.error) {
+    throw state.error;
+  }
   return <UserListContext.Provider value={value}>{children}</UserListContext.Provider>;
 }
 

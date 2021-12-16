@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
 import { clearData, getData } from '../state/actionCreators/userListActions';
 import useList from '../state/userList.hook';
 import useObservable from '../hooks/useObservable';
 import Loading from './Loading';
-import ToastNotification from './ToastNotification';
+
 import UserCard from './UserCard';
 
-function List({ userId = null }) {
+export default function List({ userId = null }) {
   const [state, dispatch] = useList();
   const [page, setPage] = useState(1);
   const [element, setElement] = useState(null);
@@ -36,11 +36,10 @@ function List({ userId = null }) {
           <UserCard user={user} key={user.id} />
         );
       })}
-      {state.error ? <ToastNotification error={state.error} /> : state.loading ? <Loading /> : null}
+      {state.loading && <Loading />}
     </Row>
   );
 }
-export default memo(List);
 
 List.propTypes = {
   userId: PropTypes.number,

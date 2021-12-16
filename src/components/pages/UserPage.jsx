@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { fetchUser } from '../../utils/httpService';
-import useHistoryList from '../../hooks/useHistoryList';
 import List from '../List';
 import UserInfo from '../UserInfo';
 
@@ -13,15 +12,25 @@ export default function UserPage({ userHistory, setUserHistory }) {
   let { id } = useParams();
 
   useEffect(async () => {
-    const userResponse = await fetchUser(id);
-    setUser(userResponse);
-    // this hook checks unique user objects in history
-    useHistoryList(userHistory, setUserHistory, userResponse);
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const userResponse = await fetchUser(id);
+      setUser(userResponse);
+      // set unique user objects in list
+      let exist = userHistory.find(u => u.id === userResponse.id);
+      if (!exist) {
+        setUserHistory(curr => [...curr, userResponse]);
+      }
+    } catch (error) {
+      console.log(error);
+      throw Error(error);
+    }
+
     return () => {
       setUserHistory([]);
     };
   }, [id]);
-
+  console.log(user);
   return (
     <>
       {user && (

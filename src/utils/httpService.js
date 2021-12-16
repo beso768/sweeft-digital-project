@@ -4,7 +4,7 @@ const basePart = 'http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/
 const size = 20;
 export async function fetchData(page, userId) {
   let link;
-  // check if we want to fetch friendList
+  // check if we want to fetch friend ist or main list
   if (userId) {
     link = `${basePart}${userId}/friends/${page}/${size}`;
   } else {

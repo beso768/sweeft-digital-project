@@ -5,7 +5,7 @@ import List from '../List';
 export default function HomePage() {
   return (
     <Row>
-      <List userId={null} />
+      <List />
     </Row>
   );
 }
